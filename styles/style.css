@@ -1,5 +1,6 @@
 :root {
   --background-color: #f3f4f6;
+  --alt-background-color: #3f3f46;
   --font-dark-color: #18181b;
   --font-light-color: #fafafa;
   --gameboard-cell-color: #dcdfe3;
@@ -33,9 +34,19 @@ body {
   font-size: 20px;
 }
 
+.score-board div {
+  padding: 4px 12px;
+  border-radius: 5px;
+}
+
 .score-board span {
   font-weight: 600;
   font-size: 1.3rem;
+}
+
+.active-player {
+  background: var(--alt-background-color);
+  color: var(--font-light-color);
 }
 
 .gaming-board {
