@@ -1,7 +1,10 @@
 :root {
   --background-color: #f3f4f6;
   --font-dark-color: #18181b;
-  --gameboard-cell-color: #d1d5db;
+  --font-light-color: #fafafa;
+  --gameboard-cell-color: #dcdfe3;
+  --gameboard-active-cell-color: #aaadb1;
+  --mark-color: #3f3f46;
 }
 
 body {
@@ -19,10 +22,20 @@ body {
 .title {
   text-align: center;
   color: var(--font-dark-color);
+  font-size: 46px;
 }
 
-.score-board p {
-  text-align: center;
+.score-board {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.score-board span {
+  font-weight: 600;
+  font-size: 1.3rem;
 }
 
 .gaming-board {
@@ -35,7 +48,7 @@ body {
   grid-template-rows: repeat(3, 1fr);
   align-items: center;
   justify-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .gaming-board-cell {
@@ -45,9 +58,18 @@ body {
   justify-content: center;
   align-items: center;
   background: var(--gameboard-cell-color);
+  color: var(--mark-color);
   border-radius: 10px;
   font-size: 48px;
   font-weight: 700;
+  transition: 0.3s;
+}
+
+.gaming-board-cell:hover {
+  scale: 1.05;
+  color: var(--font-light-color);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+  background: var(--gameboard-active-cell-color);
 }
 
 .button-container {
@@ -60,6 +82,29 @@ body {
 .button-container button {
   width: 140px;
   height: 30px;
+  border-radius: 5px;
+  border: 1px solid var(--gameboard-active-cell-color);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  font-weight: 500;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.button-container button:focus {
+  outline: none;
+}
+
+.button-container button:hover {
+  scale: 1.05;
+  background: #f9f9f9;
+}
+
+.button-container button:active {
+  scale: 0.95;
+}
+
+.footer {
+  height: 55px;
 }
 
 .footer p {
@@ -71,6 +116,11 @@ body {
 .footer a {
   text-decoration: none;
   font-weight: 700;
+  transition: 0.4s;
+}
+
+.footer a:hover {
+  font-size: 1.1rem;
 }
 
 .footer a:visited {
