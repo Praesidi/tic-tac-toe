@@ -4,11 +4,58 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/favicon.ico" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/style.css" />
     <script type="text/javascript" src="scripts/script.js" defer></script>
-    <title>Title</title>
+    <title>Tic-Tac-Toe</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <h1 class="title">Tic-Tac-Toe</h1>
+    </header>
+    <main class="main">
+      <div class="score-board">
+        <p>Player One <span>0</span></p>
+        <p>Player Two <span>0</span></p>
+      </div>
+      <div class="gaming-board">
+        <div class="gaming-board-cell">X</div>
+        <div class="gaming-board-cell">O</div>
+        <div class="gaming-board-cell"></div>
+        <div class="gaming-board-cell"></div>
+        <div class="gaming-board-cell"></div>
+        <div class="gaming-board-cell"></div>
+        <div class="gaming-board-cell"></div>
+        <div class="gaming-board-cell"></div>
+        <div class="gaming-board-cell"></div>
+      </div>
+      <div class="button-container">
+        <button>Restart Game</button>
+      </div>
+    </main>
+    <footer class="footer">
+      <p>
+        © Made by <a href="https://github.com/Praesidi">Praesidi</a> for
+        <a href="https://www.theodinproject.com/">The Odin Project</a>
+      </p>
+    </footer>
+    <!-- <dialog class="start-menu-modal" open>
+      <div class="start-menu-container"></div>
+    </dialog> -->
+    <dialog class="game-winner-modal">
+      <div class="game-winner-container">
+        <button id="close-modal-btn">&times;</button>
+        <h2>Player X Won!</h2>
+        <button>Menu</button>
+        <button>Restart</button>
+      </div>
+    </dialog>
+  </body>
 </html>

@@ -1,3 +1,94 @@
+:root {
+  --background-color: #f3f4f6;
+  --font-dark-color: #18181b;
+  --gameboard-cell-color: #d1d5db;
+}
+
 body {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  font-family: "Quicksand", sans-serif;
+  background: var(--background-color);
+  color: var(--font-dark-color);
+}
+
+.title {
+  text-align: center;
+  color: var(--font-dark-color);
+}
+
+.score-board p {
+  text-align: center;
+}
+
+.gaming-board {
+  width: 360px;
+  height: 360px;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+  gap: 5px;
+}
+
+.gaming-board-cell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--gameboard-cell-color);
+  border-radius: 10px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.button-container button {
+  width: 140px;
+  height: 30px;
+}
+
+.footer p {
+  text-align: center;
+  font-weight: 500;
+  color: var(--font-dark-color);
+}
+
+.footer a {
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer a:visited {
+  text-decoration: none;
+  color: var(--font-dark-color);
+}
+
+.start-menu-modal {
+  height: 100vh;
+  width: 100vw;
+}
+
+.game-winner-modal {
+  height: 100vh;
+  width: 100vw;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  backdrop-filter: blur(3px);
+  filter: opacity(0.85);
 }
