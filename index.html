@@ -22,25 +22,28 @@
     </header>
     <main class="main">
       <div class="score-board">
-        <!-- will change -->
-        <div id="first-player-score" class="active-player">
-          Player One <span>0</span>
+        <div id="first-player">
+          <span id="first-player-name">Player One</span>
+          <span id="first-player-score">0</span>
         </div>
-        <div id="second-player-score">Player Two <span>0</span></div>
+        <div id="second-player">
+          <span id="second-player-name">Player Two</span>
+          <span id="second-player-score">0</span>
+        </div>
       </div>
-      <div class="gaming-board">
-        <div class="gaming-board-cell">X</div>
-        <div class="gaming-board-cell">O</div>
-        <div class="gaming-board-cell"></div>
-        <div class="gaming-board-cell"></div>
-        <div class="gaming-board-cell"></div>
-        <div class="gaming-board-cell"></div>
-        <div class="gaming-board-cell"></div>
-        <div class="gaming-board-cell"></div>
-        <div class="gaming-board-cell"></div>
+      <div class="game-board" id="game-board">
+        <div class="game-board-cell" data-index="0"></div>
+        <div class="game-board-cell" data-index="1"></div>
+        <div class="game-board-cell" data-index="2"></div>
+        <div class="game-board-cell" data-index="3"></div>
+        <div class="game-board-cell" data-index="4"></div>
+        <div class="game-board-cell" data-index="5"></div>
+        <div class="game-board-cell" data-index="6"></div>
+        <div class="game-board-cell" data-index="7"></div>
+        <div class="game-board-cell" data-index="8"></div>
       </div>
       <div class="button-container">
-        <button>Restart Game</button>
+        <button id="restart-btn">Restart Game</button>
       </div>
     </main>
     <footer class="footer">
@@ -49,15 +52,11 @@
         <a href="https://www.theodinproject.com/">The Odin Project</a>
       </p>
     </footer>
-    <!-- <dialog class="start-menu-modal" open>
-      <div class="start-menu-container"></div>
-    </dialog> -->
-    <dialog class="game-winner-modal">
-      <div class="game-winner-container">
-        <button id="close-modal-btn">&times;</button>
-        <h2>Player X Won!</h2>
-        <button>Menu</button>
-        <button>Restart</button>
+    <dialog class="winner-modal" id="winner-modal" open>
+      <div>
+        <button id="modal-close-btn">&times;</button>
+        <p id="winner-modal-text">Winner</p>
+        <button id="modal-restart-btn">Restart</button>
       </div>
     </dialog>
   </body>
