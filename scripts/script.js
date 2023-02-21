@@ -53,6 +53,7 @@ const gameController = (() => {
   let activePlayer;
   let movesCounter = 1;
 
+  // check whose turn to make a move
   const checkActivePlayer = () => {
     if (movesCounter % 2) {
       activePlayer = playerOne;
@@ -61,32 +62,47 @@ const gameController = (() => {
     }
   };
 
-  const findWinner = (player) => {};
-
+  // save player moves to object's property
   const savePlayerMoves = (player, move) => {
     player.moves.push(move);
-    // console.log(player.id, player.moves);
   };
 
+  const _players = [playerOne, playerTwo];
+  let isRoundFinished = false;
+
+  // check if someone already has a winning combinations
+  const findWinner = (player) => {
+    const pMoves = player.moves;
+    const checker = (arr, target) => target.every((cell) => arr.includes(cell));
+    for (let i = 0; i < _winCombinations.length; i++) {
+      if (checker(pMoves, _winCombinations[i])) {
+        console.log(`${player.playerName} Wins`);
+        isRoundFinished = true;
+      }
+    }
+  };
+
+  // check if a cell is available
   const checkCell = (e) => {
     const { target } = e;
-    const cellIndex = target.getAttribute('data-index');
+    const cellIndex = Number(target.getAttribute('data-index'));
 
-    if (cellIndex !== null && target.textContent === '') {
+    if (cellIndex !== null && target.textContent === '' && !isRoundFinished) {
       checkActivePlayer();
       target.textContent = activePlayer.mark;
       savePlayerMoves(activePlayer, cellIndex);
+      findWinner(activePlayer);
       movesCounter++;
     }
   };
 
-  const _players = [playerOne, playerTwo];
   // cleans all cells to start new round (rounds score is untouched)
   const restartRound = () => {
     _players.forEach((player) => {
       player.moves = [];
     });
     movesCounter = 1;
+    isRoundFinished = false;
   };
 
   // cleans all cells and the score board
