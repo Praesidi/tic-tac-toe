@@ -78,12 +78,12 @@ const interfaceController = (() => {
     secondPlayerScoreEl.textContent = '0';
   };
 
-  // clears game board
+  // clears the game board
   const restartRound = () => {
     clearGameBoard();
   };
 
-  // clears game board and score boards
+  // clears the game board and score boards
   const restartGame = () => {
     clearGameBoard();
     clearScoreBoard();
@@ -97,7 +97,7 @@ const interfaceController = (() => {
     modal.close();
   };
 
-  // highlights active player's name
+  // highlights the active player's name
   const showActivePlayer = (value) => {
     if (value) {
       firstPlayerScoreBoardEl.classList.add('active-player');
@@ -149,7 +149,7 @@ const gameController = (() => {
     roundsCounter++;
   };
 
-  // each round player who starts a game changes
+  // each round player who starts first changes
   const changeFirstMove = () => {
     if (roundsCounter % 2) {
       movesCounter = 0;
@@ -185,7 +185,7 @@ const gameController = (() => {
 
   let isRoundFinished = false;
 
-  // check if someone already has a winning combinations
+  // check if someone already has a winning combination
   const findWinner = (player) => {
     const pMoves = player.moves;
     const checker = (arr, target) => target.every((cell) => arr.includes(cell));
@@ -211,7 +211,7 @@ const gameController = (() => {
     return roundsCounter;
   };
 
-  // cleans all cells to start new round (rounds score is untouched)
+  // cleans all cells to start a new round (round's score is untouched)
   const restartRound = () => {
     players.forEach((player) => {
       player.moves = [];
@@ -250,7 +250,7 @@ const updateRoundCounter = () => {
 
 const handleGame = (player) => {
   gameController.increaseMovesCounter();
-  interfaceController.showActivePlayer(player.id); // highlights player whose turn
+  interfaceController.showActivePlayer(player.id); // highlights the player whose turn
   const status = gameController.findWinner(player);
 
   if (status === 'win') {
@@ -271,7 +271,7 @@ const checkCell = (e) => {
   const cellIndex = Number(target.getAttribute('data-index'));
   const activePlayer = gameController.checkActivePlayer();
 
-  // check is a cell available
+  // checks if a cell is available
   if (
     cellIndex !== null &&
     target.textContent === '' &&
