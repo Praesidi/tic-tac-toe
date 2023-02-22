@@ -30,8 +30,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 20px;
+  user-select: none;
 }
 
 .score-board div {
@@ -43,6 +44,7 @@ body {
 #second-player-score {
   font-weight: 600;
   font-size: 1.3rem;
+  margin-left: 10px;
 }
 
 .active-player {
@@ -86,41 +88,6 @@ body {
   background: var(--gameboard-active-cell-color);
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.button-container button,
-#modal-restart-btn {
-  width: 140px;
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid var(--gameboard-active-cell-color);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  font-weight: 500;
-  transition: 0.2s;
-  cursor: pointer;
-}
-
-.button-container button:focus,
-#modal-restart-btn:focus {
-  outline: none;
-}
-
-.button-container button:hover,
-#modal-restart-btn:hover {
-  scale: 1.05;
-  background: #f9f9f9;
-}
-
-.button-container button:active,
-#modal-restart-btn:active {
-  scale: 0.95;
-}
-
 .footer {
   height: 55px;
 }
@@ -146,11 +113,6 @@ body {
   color: var(--font-dark-color);
 }
 
-/* .start-menu-modal {
-  height: 100vh;
-  width: 100vw;
-} */
-
 .winner-modal {
   position: absolute;
   top: 50%;
@@ -165,10 +127,10 @@ body {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   backdrop-filter: blur(3px);
-  filter: opacity(0.8);
+  filter: opacity(0.95);
 }
 
-.winner-modal div {
+.winner-modal > div {
   height: 100%;
   display: flex;
   align-items: center;
@@ -179,35 +141,37 @@ body {
 #winner-modal-text {
   font-size: 32px;
   font-weight: 600;
-  margin: 0;
+  margin-top: 30px;
+  text-align: center;
 }
 
-#modal-close-btn {
-  position: relative;
-  left: 140px;
-  height: fit-content;
+.modal-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.modal-btn-container button {
+  width: 140px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid var(--gameboard-active-cell-color);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  font-weight: 500;
+  transition: 0.2s;
   cursor: pointer;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  color: #b6443f;
-  transition: transform 0.2s ease-in-out;
 }
 
-#modal-close-btn i {
-  pointer-events: none;
-}
-
-#modal-close-btn:focus {
+.modal-btn-container button:focus {
   outline: none;
 }
 
-#modal-close-btn:hover {
-  scale: 1.1;
-  transform: rotate(90deg);
-  filter: brightness(1.2);
+.modal-btn-container button:hover {
+  scale: 1.05;
+  background: #f9f9f9;
 }
 
-#modal-close-btn:active {
-  scale: 0.9;
+.modal-btn-container button:active {
+  scale: 0.95;
 }

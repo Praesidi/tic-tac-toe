@@ -26,12 +26,12 @@
     </header>
     <main class="main">
       <div class="score-board">
-        <div id="first-player">
-          <span id="first-player-name">Player One</span>
+        <div id="first-player" class="active-player">
+          <span id="first-player-name">Player X </span>
           <span id="first-player-score">0</span>
         </div>
         <div id="second-player">
-          <span id="second-player-name">Player Two</span>
+          <span id="second-player-name">Player O </span>
           <span id="second-player-score">0</span>
         </div>
       </div>
@@ -46,9 +46,6 @@
         <div class="game-board-cell" data-index="7"></div>
         <div class="game-board-cell" data-index="8"></div>
       </div>
-      <div class="button-container">
-        <button id="restart-btn">Restart Game</button>
-      </div>
     </main>
     <footer class="footer">
       <p>
@@ -56,13 +53,13 @@
         <a href="https://www.theodinproject.com/">The Odin Project</a>
       </p>
     </footer>
-    <dialog class="winner-modal" id="winner-modal" open>
+    <dialog class="winner-modal" id="winner-modal">
       <div>
-        <button id="modal-close-btn">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
         <p id="winner-modal-text">Winner</p>
-        <button id="modal-restart-btn">Restart</button>
+        <div class="modal-btn-container">
+          <button id="modal-restart-btn">Restart</button>
+          <button id="modal-continue-btn">Continue</button>
+        </div>
       </div>
     </dialog>
   </body>
