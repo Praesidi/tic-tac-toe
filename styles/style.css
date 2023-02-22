@@ -88,6 +88,22 @@ body {
   background: var(--gameboard-active-cell-color);
 }
 
+.round-counter-container {
+  width: 120px;
+  padding: 10px 20px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: var(--gameboard-cell-color);
+}
+
+#round-counter {
+  font-weight: 600;
+}
+
 .footer {
   height: 55px;
 }
