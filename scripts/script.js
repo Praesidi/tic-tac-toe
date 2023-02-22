@@ -34,129 +34,6 @@ const createPlayer = (name, id) => {
   };
 };
 
-// module to control the Game's logic
-const gameController = (() => {
-  const winCombinations = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-
-  const playerOne = createPlayer('X', 0);
-  const playerTwo = createPlayer('O', 1);
-  const players = [playerOne, playerTwo];
-
-  let roundsCounter = 0;
-  let movesCounter = 0;
-
-  const increaseMovesCounter = () => {
-    movesCounter++;
-    // console.log(movesCounter);
-  };
-
-  const increaseRoundsCounter = () => {
-    roundsCounter++;
-  };
-
-  // each round player who starts a game changes
-  // FIXME: change params
-  const changeFirstMove = () => {
-    if (!(roundsCounter % 2)) {
-      movesCounter = 0;
-    } else {
-      movesCounter = 1;
-    }
-  };
-
-  // checks whose turn to make a move
-  // FIXME:
-  const checkActivePlayer = () => {
-    if (!(movesCounter % 2)) {
-      return playerOne;
-    }
-    return playerTwo;
-  };
-
-  // check if a tie is occurred
-  const checkTie = () => {
-    let isBoardFull = true;
-    const cells = document.querySelectorAll('.game-board-cell');
-    Array.from(cells).forEach((cell) => {
-      if (cell.textContent === '') {
-        isBoardFull = false;
-      }
-    });
-    return isBoardFull;
-  };
-
-  // save player moves to object's property
-  const savePlayerMoves = (player, move) => {
-    player.moves.push(move);
-  };
-
-  let isRoundFinished = false;
-
-  // check if someone already has a winning combinations
-  // переписать так, чтобы возвращал id победителя или ничью????
-  const findWinner = (player) => {
-    const pMoves = player.moves;
-    const checker = (arr, target) => target.every((cell) => arr.includes(cell));
-    for (let i = 0; i < winCombinations.length; i++) {
-      if (checker(pMoves, winCombinations[i])) {
-        isRoundFinished = true;
-        player.score += 1;
-        // console.log(`Player ${player.playerName} Wins`);
-        return 'win';
-      }
-    }
-    if (checkTie()) {
-      isRoundFinished = true;
-      // console.log("It's a tie!");
-      return 'tie';
-    }
-    return 0;
-  };
-
-  const getRoundStatus = () => {
-    return isRoundFinished;
-  };
-
-  // cleans all cells to start new round (rounds score is untouched)
-  const restartRound = () => {
-    players.forEach((player) => {
-      player.moves = [];
-    });
-    changeFirstMove();
-    isRoundFinished = false;
-  };
-
-  // cleans all cells and the score board
-  const restartGame = () => {
-    restartRound();
-    players.forEach((player) => {
-      player.score = 0;
-    });
-    movesCounter = 0;
-    roundsCounter = 0;
-  };
-
-  return {
-    findWinner,
-    restartGame,
-    restartRound,
-    getRoundStatus,
-    savePlayerMoves,
-    checkActivePlayer,
-    increaseMovesCounter,
-    increaseRoundsCounter,
-  };
-})();
-
 // module to control the interface of the Game
 const interfaceController = (() => {
   const firstPlayerScoreBoardEl = document.getElementById('first-player');
@@ -164,6 +41,7 @@ const interfaceController = (() => {
   const firstPlayerScoreEl = document.getElementById('first-player-score');
   const secondPlayerScoreEl = document.getElementById('second-player-score');
   const modalText = document.getElementById('winner-modal-text');
+  const roundsCounterEl = document.getElementById('round-counter');
   const modal = document.querySelector('dialog');
 
   const updatePlayerScore = (player) => {
@@ -174,7 +52,11 @@ const interfaceController = (() => {
     }
   };
 
-  const showWinnerName = (player) => {
+  const updateRoundCounter = (rounds) => {
+    roundsCounterEl.textContent = `${rounds}`;
+  };
+
+  const showWinner = (player) => {
     modalText.textContent = `Player ${player.playerName} wins the round!`;
   };
 
@@ -216,9 +98,8 @@ const interfaceController = (() => {
   };
 
   // highlights active player's name
-  // (player.id === 1) because we use id opposite to id of player who made last move
-  const showActivePlayer = (player) => {
-    if (player.id === 1) {
+  const showActivePlayer = (value) => {
+    if (value) {
       firstPlayerScoreBoardEl.classList.add('active-player');
       secondPlayerScoreBoardEl.classList.remove('active-player');
     } else {
@@ -228,25 +109,153 @@ const interfaceController = (() => {
   };
 
   return {
+    updateRoundCounter,
     updatePlayerScore,
     showActivePlayer,
-    showWinnerName,
     restartRound,
     restartGame,
+    showWinner,
     closeModal,
     showModal,
     showTie,
   };
 })();
 
+// module to control the Game's logic
+const gameController = (() => {
+  const winCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  const playerOne = createPlayer('X', 0);
+  const playerTwo = createPlayer('O', 1);
+  const players = [playerOne, playerTwo];
+
+  let roundsCounter = 1;
+  let movesCounter = 0;
+
+  const increaseMovesCounter = () => {
+    movesCounter++;
+  };
+
+  const increaseRoundsCounter = () => {
+    roundsCounter++;
+  };
+
+  // each round player who starts a game changes
+  const changeFirstMove = () => {
+    if (roundsCounter % 2) {
+      movesCounter = 0;
+    } else {
+      movesCounter = 1;
+    }
+  };
+
+  // checks whose turn to make a move
+  const checkActivePlayer = () => {
+    if (!(movesCounter % 2)) {
+      return playerOne;
+    }
+    return playerTwo;
+  };
+
+  // check if a tie is occurred
+  const checkTie = () => {
+    let isBoardFull = true;
+    const cells = document.querySelectorAll('.game-board-cell');
+    Array.from(cells).forEach((cell) => {
+      if (cell.textContent === '') {
+        isBoardFull = false;
+      }
+    });
+    return isBoardFull;
+  };
+
+  // save player moves to object's property
+  const savePlayerMoves = (player, move) => {
+    player.moves.push(move);
+  };
+
+  let isRoundFinished = false;
+
+  // check if someone already has a winning combinations
+  const findWinner = (player) => {
+    const pMoves = player.moves;
+    const checker = (arr, target) => target.every((cell) => arr.includes(cell));
+    for (let i = 0; i < winCombinations.length; i++) {
+      if (checker(pMoves, winCombinations[i])) {
+        isRoundFinished = true;
+        player.score += 1;
+        return 'win';
+      }
+    }
+    if (checkTie()) {
+      isRoundFinished = true;
+      return 'tie';
+    }
+    return 0;
+  };
+
+  const getRoundStatus = () => {
+    return isRoundFinished;
+  };
+
+  const getRoundsNumber = () => {
+    return roundsCounter;
+  };
+
+  // cleans all cells to start new round (rounds score is untouched)
+  const restartRound = () => {
+    players.forEach((player) => {
+      player.moves = [];
+    });
+    changeFirstMove();
+    isRoundFinished = false;
+  };
+
+  // cleans all cells and the score board
+  const restartGame = () => {
+    restartRound();
+    players.forEach((player) => {
+      player.score = 0;
+    });
+    movesCounter = 0;
+    roundsCounter = 1;
+  };
+
+  return {
+    findWinner,
+    restartGame,
+    restartRound,
+    getRoundStatus,
+    savePlayerMoves,
+    getRoundsNumber,
+    checkActivePlayer,
+    increaseMovesCounter,
+    increaseRoundsCounter,
+  };
+})();
+
+const updateRoundCounter = () => {
+  const roundsNum = gameController.getRoundsNumber();
+  interfaceController.updateRoundCounter(roundsNum);
+};
+
 const handleGame = (player) => {
   gameController.increaseMovesCounter();
-  interfaceController.showActivePlayer(player); // highlights player whose turn
+  interfaceController.showActivePlayer(player.id); // highlights player whose turn
   const status = gameController.findWinner(player);
 
   if (status === 'win') {
     interfaceController.showModal(player);
-    interfaceController.showWinnerName(player);
+    interfaceController.showWinner(player);
     interfaceController.updatePlayerScore(player);
     gameController.increaseRoundsCounter();
   }
@@ -261,7 +270,6 @@ const checkCell = (e) => {
   const { target } = e;
   const cellIndex = Number(target.getAttribute('data-index'));
   const activePlayer = gameController.checkActivePlayer();
-  console.log(activePlayer);
 
   // check is a cell available
   if (
@@ -271,7 +279,6 @@ const checkCell = (e) => {
   ) {
     target.textContent = activePlayer.mark; // place mark
     gameController.savePlayerMoves(activePlayer, cellIndex); // saves moves
-
     handleGame(activePlayer);
   }
 };
@@ -282,9 +289,14 @@ continueBtn.addEventListener('click', () => {
   gameController.restartRound();
   interfaceController.restartRound();
   interfaceController.closeModal();
+  updateRoundCounter();
+  const value = gameController.getRoundsNumber() % 2;
+  interfaceController.showActivePlayer(value);
 });
 restartBtn.addEventListener('click', () => {
   gameController.restartGame();
   interfaceController.restartGame();
   interfaceController.closeModal();
+  updateRoundCounter();
+  interfaceController.showActivePlayer(1);
 });
